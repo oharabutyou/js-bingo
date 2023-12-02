@@ -39,6 +39,7 @@ const btn_click = () => {
     const main_number = $("#main-number");
     $("#control-button").off("click", btn_click);
     $("#control-button").removeClass("btn-primary");
+    $("#main-number").removeClass("line-height");
     $("#control-button").addClass("btn-secondary");
     sound.play();
     sound.addEventListener("ended", enable_btn);

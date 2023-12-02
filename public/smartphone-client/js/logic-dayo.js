@@ -74,7 +74,7 @@ for (let r = 0; r < BOARD_SIZE; ++r) {
         }
 
         do {
-            value = Math.trunc(rng() * (ROW_MAX_NUMBER * (r+1) - ROW_MAX_NUMBER * (r)) + 1 + (ROW_MAX_NUMBER * r))
+            value = Math.trunc(rng() * (ROW_MAX_NUMBER * (c+1) - ROW_MAX_NUMBER * (c)) + 1 + (ROW_MAX_NUMBER * c))
         } while (usedNumArray.length > 0 && usedNumArray.includes(value));
         
         if (r == Math.trunc(BOARD_SIZE / 2) && c == Math.trunc(BOARD_SIZE / 2)) {

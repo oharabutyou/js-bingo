@@ -9,7 +9,7 @@ const board_seed = getParams.get("seed");
 const $seed_display = $(".board-seed").html(board_seed);
 const $container = $(".container");
 const $row = $("<div class='row'></div>");
-const $col = $("<div class='col text-center'></div>");
+const $col = $("<div class='col text-center border'></div>");
 
 // 乱数生成器(ライブラリ使用)
 const rng = new Math.seedrandom(board_seed);

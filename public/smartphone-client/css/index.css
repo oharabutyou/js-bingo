@@ -1,6 +1,6 @@
 @font-face {
     font-family: "Comic Sans";
-    src: url("https://github.com/kristopolous/lowcon/raw/master/fonts/comic-sans.woff") format("woff");
+    src: url("./comic.ttf") format("truetype");
 }
 
 body {

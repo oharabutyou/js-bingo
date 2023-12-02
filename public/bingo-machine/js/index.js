@@ -1,10 +1,35 @@
+// 読み込み直後のセットアップ
 $(() => {
     $("#history-box").html("01.  1 B\n02.  2 B");
     $("#control-button").click(btn_click);
+    set_number_list();
 });
-let sound = new Audio(
-    "https://raw.githubusercontent.com/Yousuke777/sound/main/kansei.mp3"
-);
+
+// GETパラメータから取得
+const getParams = new URLSearchParams(window.location.search);
+const board_seed = getParams.get("seed");
+
+// 音声ファイルの取得
+const sound = new Audio("./sounds/ドラムロールの音.mp3");
+
+//ビンゴマシンの数字シャッフル
+const number_list = [];
+const MAX_NUMBER = 75;
+const set_number_list = () => {
+    const rng = new Math.seedrandom(board_seed);
+    const rand_list = [];
+    for (let index = 0; index < MAX_NUMBER; index++) {
+        rand_list.push({ index, rand: rng() });
+    }
+    number_list.push(
+        rand_list
+            .sort((a, b) => (a.rand > b.rand ? 1 : -1))
+            .map((item) => item.index + 1)
+    );
+    console.log(board_seed, number_list);
+};
+
+// ボタン押下時の動作
 const btn_click = () => {
     const main_number = $("#main-number");
     main_number.html(parseInt(main_number.html()) + 1);
@@ -12,6 +37,8 @@ const btn_click = () => {
     sound.play();
 };
 
+// 履歴表示の動作
+const bingo_list = ["B", "I", "N", "G", "O"];
 const push_number = (num, index) => {
     const list_number = $("#history-box");
     list_number.html(
@@ -19,23 +46,8 @@ const push_number = (num, index) => {
             ". " +
             String(num).padStart(2, " ") +
             " " +
-            select_char(num) +
+            bingo_list[Math.floor(num / 15)] +
             "\n" +
             list_number.html()
     );
-};
-
-const select_char = (num) => {
-    switch (Math.floor(num / 15)) {
-        case 0:
-            return "B";
-        case 1:
-            return "I";
-        case 2:
-            return "N";
-        case 3:
-            return "G";
-        case 4:
-            return "O";
-    }
 };

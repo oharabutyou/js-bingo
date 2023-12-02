@@ -56,11 +56,13 @@ for (let r = 0; r < BOARD_SIZE; ++r) {
         
         $temp_col
             // .on("click", { row: r, col: c }, nodeClickHandler)
-            .on("mousedown touchstart", function () {
+            .on("mousedown touchstart", function (event) {
+                event.preventDefault();
                 nodeClickHandler(r, c);
                 pressTimer = setTimeout(nodeLongPressHandler, LONGPRESS_SECONDS * 1000, r, c);
             })
             .on("mouseup mouseleave touchend touchmove", function (event) {
+                event.preventDefault();
                 clearTimeout(pressTimer);
                 console.log("event cleared");
             });

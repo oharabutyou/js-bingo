@@ -10,7 +10,7 @@ const board_seed = getParams.get("seed");
 // UI要素
 const $seed_display = $(".board-seed").html(board_seed);
 const $container = $(".container");
-const $row = $("<div class='row'></div>");
+const $row = $("<div class='row flex-nowrap'></div>");
 const $col = $("<div class='col text-center border'></div>");
 const highlightClass = "bg-dark text-white";
 

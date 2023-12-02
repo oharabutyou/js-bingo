@@ -28,10 +28,15 @@ function findCell(row, col) {
         .eq(col);
 }
 
-function nodeClickHandler(event) {
-    $eventCell = findCell(event.data.row, event.data.col);
-    console.log($eventCell);
+// function nodeClickHandler(event) {
+//     $eventCell = findCell(event.data.row, event.data.col);
+//     console.log($eventCell);
 
+//     $eventCell.addClass(highlightClass);
+// }
+function nodeClickHandler(row, col) {
+    $eventCell = findCell(row, col);
+    console.log($eventCell);
     $eventCell.addClass(highlightClass);
 }
 function nodeLongPressHandler(row, col) {
@@ -50,8 +55,9 @@ for (let r = 0; r < BOARD_SIZE; ++r) {
         let bgHighlightTarget = (r % 2 == 0) ? 0 : 1;
         
         $temp_col
-            .on("click", { row: r, col: c }, nodeClickHandler)
+            // .on("click", { row: r, col: c }, nodeClickHandler)
             .on("mousedown touchstart", function () {
+                nodeClickHandler(r, c);
                 pressTimer = setTimeout(nodeLongPressHandler, LONGPRESS_SECONDS * 1000, r, c);
             })
             .on("mouseup mouseleave touchend touchmove", function (event) {

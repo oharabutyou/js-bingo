@@ -2,6 +2,9 @@
 $(() => {
     $("#control-button").on("click", btn_click);
     set_number_list();
+    // for (let index = 0; index < MAX_NUMBER; index++) {
+    //     console.log(index, bingo_list[Math.floor(index / 15)]);
+    // }
 });
 
 // GETパラメータから取得
@@ -64,12 +67,12 @@ const bingo_list = ["B", "I", "N", "G", "O"];
 const push_number = (num, index) => {
     const list_number = $("#history-box");
     list_number.html(
-        String(index).padStart(2, "0") +
-            ". " +
-            String(num).padStart(2, " ") +
+        // String(index).padStart(2, "0") +
+        //     ". " +
+        String(num).padStart(2, " ") +
             " " +
-            bingo_list[Math.floor(num / 15)] +
-            "\n" +
+            bingo_list[Math.floor((num - 1) / 15)] +
+            (list_number.html() === "" ? "" : "\n") +
             list_number.html()
     );
 };

@@ -35,19 +35,28 @@ const btn_click = () => {
     console.log("clicked!");
     const main_number = $("#main-number");
     $("#control-button").off("click", btn_click);
+    $("#control-button").removeClass("btn-primary");
+    $("#control-button").addClass("btn-secondary");
     sound.play();
     sound.addEventListener("ended", enable_btn);
+    const interval = setInterval(() => {
+        main_number.html(Math.ceil(Math.random() * MAX_NUMBER));
+    }, 20);
     setTimeout(() => {
         main_number.html(number_list[bingo_counter]);
         push_number(number_list[bingo_counter], bingo_counter + 1);
         bingo_counter++;
+        clearInterval(interval);
     }, 3000);
 };
 
+// 音声終了時にボタンを有効化する
 const enable_btn = (event) => {
     $("#control-button").on("click", btn_click);
     console.log("sound finished!");
     sound.removeEventListener("ended", enable_btn);
+    $("#control-button").removeClass("btn-secondary");
+    $("#control-button").addClass("btn-primary");
 };
 
 // 履歴表示の動作

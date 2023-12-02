@@ -21,16 +21,22 @@ for (let r = 0; r < BOARD_SIZE; ++r) {
     for (let c = 0; c < BOARD_SIZE; ++c) {
         let $temp_col = $col.clone();
         let value = 0;
+        let bgHighlightTarget = (r % 2 == 0) ? 0 : 1;
         
         usedNumArray.push(value);
         $temp_row.append($temp_col);
+
+        // 奇数業と偶数行
+        if (c % 2 == bgHighlightTarget) {
+            $temp_col.addClass('bg-light');
+        }
 
         do {
             value = Math.trunc(rng() * MAX_NUMBER + 1)
         } while (usedNumArray.length > 0 && usedNumArray.includes(value));
         
         if (r == Math.trunc(BOARD_SIZE / 2) && c == Math.trunc(BOARD_SIZE / 2)) {
-            $temp_col.html("👍");
+            $temp_col.html("🆓");
             continue;
         }
         else {

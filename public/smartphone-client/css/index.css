@@ -12,5 +12,12 @@ body {
     height: 10vh;
     line-height: 10vh;
     font-size: 2rem;
+    
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none
 }
 

@@ -49,14 +49,15 @@ for (let r = 0; r < BOARD_SIZE; ++r) {
         let value = 0;
         let bgHighlightTarget = (r % 2 == 0) ? 0 : 1;
         
-        $temp_col.on("click", { row: r, col: c }, nodeClickHandler);
-        $temp_col.on("mousedown touchstart", function () {
-            pressTimer = setTimeout(nodeLongPressHandler, LONGPRESS_SECONDS * 1000, r, c);
-        })
-        .on("mouseup mouseleave touchend touchmove", function () {
-            clearTimeout(pressTimer);
-            console.log("event cleared");
-        });
+        $temp_col
+            .on("click", { row: r, col: c }, nodeClickHandler)
+            .on("mousedown touchstart", function () {
+                pressTimer = setTimeout(nodeLongPressHandler, LONGPRESS_SECONDS * 1000, r, c);
+            })
+            .on("mouseup mouseleave touchend touchmove", function (event) {
+                clearTimeout(pressTimer);
+                console.log("event cleared");
+            });
         $temp_row.append($temp_col);
 
         // 奇数業と偶数行

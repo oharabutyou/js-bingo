@@ -1,7 +1,6 @@
 // 読み込み直後のセットアップ
 $(() => {
-    $("#history-box").html("01.  1 B\n02.  2 B");
-    $("#control-button").click(btn_click);
+    $("#control-button").on("click", btn_click);
     set_number_list();
 });
 
@@ -15,6 +14,7 @@ const sound = new Audio("./sounds/ドラムロールの音.mp3");
 //ビンゴマシンの数字シャッフル
 const number_list = [];
 const MAX_NUMBER = 75;
+let bingo_counter = 0;
 const set_number_list = () => {
     const rng = new Math.seedrandom(board_seed);
     const rand_list = [];
@@ -22,19 +22,32 @@ const set_number_list = () => {
         rand_list.push({ index, rand: rng() });
     }
     number_list.push(
-        rand_list
+        ...rand_list
             .sort((a, b) => (a.rand > b.rand ? 1 : -1))
             .map((item) => item.index + 1)
     );
+    bingo_counter = 0;
     console.log(board_seed, number_list);
 };
 
 // ボタン押下時の動作
 const btn_click = () => {
+    console.log("clicked!");
     const main_number = $("#main-number");
-    main_number.html(parseInt(main_number.html()) + 1);
-    push_number(1, 1);
+    $("#control-button").off("click", btn_click);
     sound.play();
+    sound.addEventListener("ended", enable_btn);
+    setTimeout(() => {
+        main_number.html(number_list[bingo_counter]);
+        push_number(number_list[bingo_counter], bingo_counter + 1);
+        bingo_counter++;
+    }, 3000);
+};
+
+const enable_btn = (event) => {
+    $("#control-button").on("click", btn_click);
+    console.log("sound finished!");
+    sound.removeEventListener("ended", enable_btn);
 };
 
 // 履歴表示の動作

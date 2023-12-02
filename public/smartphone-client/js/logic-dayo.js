@@ -61,7 +61,7 @@ for (let r = 0; r < BOARD_SIZE; ++r) {
                 nodeClickHandler(r, c);
                 pressTimer = setTimeout(nodeLongPressHandler, LONGPRESS_SECONDS * 1000, r, c);
             })
-            .on("mouseup mouseleave touchend touchmove", function (event) {
+            .on("mouseup touchend", function (event) {
                 event.preventDefault();
                 clearTimeout(pressTimer);
                 console.log("event cleared");

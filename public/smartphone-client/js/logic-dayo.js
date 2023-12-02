@@ -1,5 +1,6 @@
 const BOARD_SIZE = 5;
 const MAX_NUMBER = 75;
+const ROW_MAX_NUMBER = 15;
 
 // GETパラメータから取得
 const getParams = new URLSearchParams(window.location.search)
@@ -18,12 +19,13 @@ let usedNumArray = [];
 
 for (let r = 0; r < BOARD_SIZE; ++r) {
     let $temp_row = $row.clone();
+    $container.append($temp_row);
+
     for (let c = 0; c < BOARD_SIZE; ++c) {
         let $temp_col = $col.clone();
         let value = 0;
         let bgHighlightTarget = (r % 2 == 0) ? 0 : 1;
         
-        usedNumArray.push(value);
         $temp_row.append($temp_col);
 
         // 奇数業と偶数行
@@ -32,7 +34,7 @@ for (let r = 0; r < BOARD_SIZE; ++r) {
         }
 
         do {
-            value = Math.trunc(rng() * MAX_NUMBER + 1)
+            value = Math.trunc(rng() * (ROW_MAX_NUMBER * (r+1) - ROW_MAX_NUMBER * (r)) + 1 + (ROW_MAX_NUMBER * r))
         } while (usedNumArray.length > 0 && usedNumArray.includes(value));
         
         if (r == Math.trunc(BOARD_SIZE / 2) && c == Math.trunc(BOARD_SIZE / 2)) {
@@ -42,8 +44,8 @@ for (let r = 0; r < BOARD_SIZE; ++r) {
         else {
             $temp_col.html(value.toString());
         }
+        usedNumArray.push(value);
     }
-    $container.append($temp_row);
 }
 
 
